@@ -1,0 +1,11 @@
+<mat-card-title *ngIf="company">
+  Company <a routerLink="/create" class="right">Add Company</a>
+  <tree-root [nodes]="company" >
+      <ng-template #treeNodeTemplate let-node let-index="index">
+          <span><a routerLink="/company/{{node.data.id}}">{{ node.data.name }}</a></span>  
+          <span *ngIf=" node.data.estimate"> | {{ node.data.estimate }}</span>   
+          <span *ngIf=" node.data.estimate_cildren"> | {{ node.data.estimate_cildren }}</span>
+          <mat-button-toggle (click)="deleteCompany(node.data.id)" >Видалити</mat-button-toggle>
+      </ng-template>
+  </tree-root>
+</mat-card-title>

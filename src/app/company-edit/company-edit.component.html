@@ -1,0 +1,45 @@
+<mat-card-title>
+<div *ngIf="companyData.name"> Company - {{companyData.name}}</div>
+<div *ngIf="!companyData.name"> New Company </div>
+</mat-card-title>
+
+<div class="container" *ngIf="companyForm && pageData">
+	<form [formGroup]="companyForm" (ngSubmit)="onSubmit(companyForm)" >
+		<div>
+			<mat-form-field class="example-full-width">
+				<input id="name" matInput formControlName="name" placeholder="Name">
+			</mat-form-field>
+			<div *ngIf="checkError('name' ,'required')">
+				Обовязкове поле.
+			</div>
+		</div>
+		<div>
+			<mat-form-field class="example-full-width">
+				<input id="estimate" matInput formControlName="estimate" placeholder="Estimate">
+			</mat-form-field>
+			<div *ngIf="checkError('estimate' ,'required')">
+				Обовязкове поле.
+			</div>
+		</div>
+
+    <div class="form-group">{{company_id}}
+			<mat-form-field>
+					<mat-select placeholder="Parent" formControlName="parent_id">
+						<mat-option  [value]=0 >
+								Без головної категорії
+						</mat-option>
+						<mat-option  *ngFor="let c of pageData?.company " [value]="c.company_id"  >
+							{{c.name}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+		</div>
+    
+    
+    <div *ngIf="errorMessage">
+			{{errorMessage}}
+		</div>
+		<button mat-button [disabled]="companyForm.invalid" >Save</button>
+		<a routerLink="/">Back</a>
+	</form>
+</div>
